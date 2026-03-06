@@ -63,3 +63,27 @@ CREATE TABLE measures (
   value INT NOT NULL,
   measured_at TIMESTAMP NOT NULL DEFAULT now()
 );
+
+CREATE TABLE logs (
+  id SERIAL PRIMARY KEY,
+  ip VARCHAR(16) NOT NULL,
+  user_id INT REFERENCES users(id),
+  created_at TIMESTAMP DEFAULT now()
+);
+
+CREATE USER user_manager WITH PASSWORD 'password';
+GRANT CONNECT ON DATABASE db_api_culteur TO user_manager;
+GRANT USAGE ON SCHEMA public TO user_manager;
+GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE public.users TO user_manager;
+GRANT USAGE, SELECT ON SEQUENCE public.users_id_seq TO user_manager;
+
+CREATE USER user_docker WITH PASSWORD 'password';
+GRANT CONNECT ON DATABASE db_api_culteur TO user_docker;
+GRANT USAGE ON SCHEMA public TO user_docker;
+GRANT INSERT, UPDATE, DELETE ON TABLE public.services TO user_docker;
+GRANT USAGE, SELECT ON SEQUENCE public.services_id_seq TO user_docker;
+
+CREATE USER user_api WITH PASSWORD 'password';
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO user_api;
+REVOKE INSERT, UPDATE, DELETE ON TABLE public.users FROM user_manager;
+REVOKE INSERT, UPDATE, DELETE ON TABLE public.services FROM user_manager;

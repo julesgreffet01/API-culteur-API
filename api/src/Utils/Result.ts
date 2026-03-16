@@ -1,6 +1,6 @@
 export interface Result {
-    success: boolean;
-    data?: any;
-    errorCode?: string;
-    message?: string;
+    Success: boolean;
+    Data?: any;
+    ErrorCode?: string;
+    Message?: string;
 }

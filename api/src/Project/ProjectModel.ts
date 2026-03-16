@@ -1,15 +1,16 @@
 import {User} from "./../User/UserModel"
 
 export class Project {
-    id: number;
-    name: string;
-    created_at: Date;
-    User: User;
+    Id?: number;
+    Name: string;
+    CreatedAt?: string;
+    User?: User;
 
-    constructor(id: number, name: string , created_at: Date, User: User){
-        this.id = id
-        this.name = name
-        this.created_at = created_at
+    constructor(Id?: number, Name: string , CreatedAt?: string, User?: User){
+        this.Id = Id
+        this.Name = Name
+        this.CreatedAt = CreatedAt
         this.User = User
     }
+
 }

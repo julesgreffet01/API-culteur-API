@@ -6,19 +6,19 @@ import {Port} from "./PortModel"
 
 export class Service {
     
-    uuid: UUID;
-    image: string;
-    started_since: Date;
-    name: string;
+    Uuid: UUID;
+    Image: string;
+    StartedSince: Date;
+    Name: string;
     Project: Project;
     Status: Status;
     Ports: Port[];
 
-    constructor(uuid: UUID, image: string , started_since: Date ,name: string , Project: Project, Status: Status, Ports: Port[]){
-        this.uuid = uuid
-        this.image = image
-        this.started_since = started_since
-        this.name = name
+    constructor(Uuid: UUID, Image: string , StartedSince: Date ,Name: string , Project: Project, Status: Status, Ports: Port[]){
+        this.Uuid = Uuid
+        this.Image = Image
+        this.StartedSince = StartedSince
+        this.Name = Name
         this.Project = Project
         this.Status = Status
         this.Ports = Ports

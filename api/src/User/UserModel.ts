@@ -2,17 +2,17 @@ import {Role} from "./RoleModel"
 
 export class User {
     
-    id: number;
-    username: string;
-    password: string;
-    name: string;
+    Id: number;
+    Username: string;
+    Password: string;
+    Name: string;
     Role: Role;
 
-    constructor(id: number, username: string , password: string ,name: string , Role: Role){
-        this.id = id
-        this.username = username
-        this.password = password
-        this.name = name
+    constructor(Id: number, Username: string , Password: string ,Name: string , Role: Role){
+        this.Id = Id
+        this.Username = Username
+        this.Password = Password
+        this.Name = Name
         this.Role = Role
     }
 }

@@ -1,0 +1,25 @@
+services:
+
+  db:
+    image: postgres:16-alpine
+    container_name: api-culteur-db
+    shm_size: 128mb
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./script.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./data.sql:/docker-entrypoint-initdb.d/02-data.sql #enlever en prod
+    environment:
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: db_api_culteur
+      POSTGRES_USER: postgres
+    ports:
+      - 5433:5432
+    networks:
+      - api-culteur-network
+
+volumes:
+  db_data:
+    name: api_culteur_db_data
+    
+networks:
+  api-culteur-network:

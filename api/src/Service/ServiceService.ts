@@ -2,7 +2,7 @@ import { UUID } from "node:crypto";
 import { Service } from "././ServiceModel";
 import { ServiceRepository } from "./ServiceRepository";
 
-export class ProjectService{
+export class ServiceService{
 
     private serviceRepo = new ServiceRepository();
 

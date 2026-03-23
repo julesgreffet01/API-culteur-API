@@ -6,7 +6,7 @@ export class Project {
     CreatedAt?: string;
     User?: User;
 
-    constructor(Id?: number, Name: string , CreatedAt?: string, User?: User){
+constructor(Name: string, Id?: number, CreatedAt?: string, User?: User) {
         this.Id = Id
         this.Name = Name
         this.CreatedAt = CreatedAt

@@ -1,3 +1,4 @@
+import { ProjectDAO } from "./ProjectDAO";
 import { ProjectFilter } from "./ProjectFilter";
 import { Project } from "./ProjectModel";
 import { ProjectRepository } from "./ProjectRepository";
@@ -14,10 +15,30 @@ export class ProjectService{
         return this.projectRepo.GetAll(filter)
     }
 
-    async Create(name: string){
+    async Create(data: ProjectFilter){
         
-        const project: Project = {
-            Name: name
+        const project: ProjectDAO = {
+            id:
+            name: data.name
+            createdAt:
+            userId:
         }
+        return this.projectRepo.Create(project)
+    }
+
+
+    async Update(data: ProjectFilter){
+        
+        const project: ProjectDAO = {
+            id:
+            name: data.name
+            createdAt:
+            userId:
+        }
+        return this.projectRepo.Update(project)
+    }
+
+    async Delete(id: number){
+        return this.projectRepo.Delete(id)
     }
 }

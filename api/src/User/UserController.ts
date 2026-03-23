@@ -12,13 +12,13 @@ export class UserController{
         try {
             const { name, username, role } = req.query;
 
-            const filters: UserFilter = {
-                name: req.query.name as string,
-                username: req.query.username as string,
-                role: req.query.role as string
+            const filter: UserFilter = {
+                name: name as string,
+                username: username as string,
+                role: role as string
             }
 
-            const users = await this.userService.GetAll(filters)
+            const users = await this.userService.GetAll(filter)
             return {
                 Success: true,
                 Data: users,
@@ -38,7 +38,7 @@ export class UserController{
     async GetById(req: Request): Promise<Result> {
         const { id } = req.query;
         try {
-            const user = this.userService.GetById(Number(req.query.id));
+            const user = this.userService.GetById(Number(id));
             return {
                 Success: true,
                 Data: user,

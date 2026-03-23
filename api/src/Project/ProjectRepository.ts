@@ -1,11 +1,12 @@
 import { WriteRepository } from "../BasicSkeleton/WriteRepository";
 import { Project } from "./ProjectModel";
+import { ProjectDAO } from "./ProjectDAO";
 import { db } from "../Db/Db";
 import { UserService } from "./../User/UserService";
 import { User } from './../User/UserModel'
 import { ProjectFilter } from "./ProjectFilter";
 
-export class ProjectRepository extends WriteRepository<Project>{
+export class ProjectRepository extends WriteRepository<ProjectDAO,Project>{
 
       constructor() {
         super(db);
@@ -66,9 +67,9 @@ export class ProjectRepository extends WriteRepository<Project>{
         return project
       }
     
-      async Create(data: Project): Promise<Project>{
+      async Create(data: ProjectDAO): Promise<Project>{
 
-        const res = await this.db.query(`INSERT INTO project (name, user_id) VALUES ($1, $2) RETURNING *`, [data.Name, data.User?.Id])
+        const res = await this.db.query(`INSERT INTO project (name, user_id) VALUES ($1, $2) RETURNING *`, [data.name, data.userId])
         
         const user: User | undefined = await this.userServ.GetById(res.rows[0].user_id)
         
@@ -81,13 +82,13 @@ export class ProjectRepository extends WriteRepository<Project>{
         return project
       }
     
-      async Update(id: number, data: Project): Promise<Project>{
+      async Update(data: ProjectDAO): Promise<Project>{
       const res = await this.db.query(
           `UPDATE project 
            SET name = $1, created_at = $2, user_id = $3
            WHERE id = $4
            RETURNING *`,
-          [data.Name, data.CreatedAt, data.User?.Id, id]
+          [data.name, data.createdAt, data.userId, data.id]
       );      
 
       const user = await this.userServ.GetById(res.rows[0].user_id);      

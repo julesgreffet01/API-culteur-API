@@ -34,7 +34,7 @@ CREATE TABLE projects (
 );
 
 CREATE TABLE services (
-  uuid TEXT PRIMARY KEY,
+  uuid UUID PRIMARY KEY,
   image VARCHAR(100),
   started_since TIMESTAMP NOT NULL DEFAULT now(),
   name VARCHAR(50) NOT NULL,
@@ -72,20 +72,19 @@ CREATE TABLE logs (
 );
 
 CREATE USER user_manager WITH PASSWORD 'password';
-GRANT CONNECT ON DATABASE db_api_culteur TO user_manager;
-GRANT USAGE ON SCHEMA public TO user_manager;
-GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE public.users TO user_manager;
-GRANT USAGE, SELECT ON SEQUENCE public.users_id_seq TO user_manager;
-
 CREATE USER user_docker WITH PASSWORD 'password';
-GRANT CONNECT ON DATABASE db_api_culteur TO user_docker;
-GRANT USAGE ON SCHEMA public TO user_docker;
-GRANT INSERT, UPDATE, DELETE ON TABLE public.services TO user_docker;
-
 CREATE USER user_api WITH PASSWORD 'password';
+
+GRANT CONNECT ON DATABASE api_culteur TO user_manager, user_docker, user_api;
+
+GRANT USAGE ON SCHEMA public TO user_manager, user_docker, user_api;
+
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO user_manager;
+GRANT INSERT, UPDATE, DELETE ON services TO user_docker;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO user_api;
-REVOKE INSERT, UPDATE, DELETE ON TABLE public.users FROM user_manager;
-REVOKE INSERT, UPDATE, DELETE ON TABLE public.services FROM user_manager;
+
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO user_api;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO user_manager;
 
 INSERT INTO roles (libelle) values ('admin'), ('dev_ops'), ('developer');
 INSERT INTO "status" (libelle) values ('up'), ('starting'), ('stop'), ('down');

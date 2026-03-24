@@ -88,3 +88,5 @@ GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO user_manager;
 
 INSERT INTO roles (libelle) values ('admin'), ('dev_ops'), ('developer');
 INSERT INTO "status" (libelle) values ('up'), ('starting'), ('stop'), ('down');
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";

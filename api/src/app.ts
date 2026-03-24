@@ -14,7 +14,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.use("/users", UserRouter);
-app.use("/projects", ProjectRouter)
+app.use("/projects", ProjectRouter);
 
 app.listen(PORT, () => {
   console.log(`Serveur lancé sur http://localhost:${PORT}`);

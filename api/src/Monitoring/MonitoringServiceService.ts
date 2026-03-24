@@ -8,6 +8,7 @@ export class MonitoringServiceService {
     private MonitoringRepository = new MonitoringRepository();
 
     async GetAllMeasures(filter: MonitoringFilter): Promise<MeasureModel[]> {
+        console.log(this.MonitoringRepository.GetAllMeasures());
         return await this.MonitoringRepository.GetAllMeasures(filter)
     }
 }

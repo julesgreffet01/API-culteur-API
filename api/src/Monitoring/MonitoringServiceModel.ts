@@ -1,18 +1,20 @@
+import { UUID } from "node:crypto";
 import {Service} from "../Service/ServiceModel";
 import {Monitoring} from "./MonitoringModel";
+
 
 export class MonitoringServiceModel {
     id : number;
     monitoringId: Monitoring;
-    serviceUuid: Service;
+    serviceUUID: UUID
     minValue: number;
     maxValue: number;
 
-    constructor(id: number, monitoringId: Monitoring, serviceUuid: Service, minValue: number, maxValue: number) {
+    constructor(id: number, monitoringId: Monitoring, minValue: number, maxValue: number, serviceUUID: UUID) {
         this.id = id;
-        this.monitoringId = monitoringId;
-        this.serviceUuid = serviceUuid;
         this.minValue = minValue;
         this.maxValue = maxValue;
+        this.monitoringId = monitoringId;
+        this.serviceUUID = serviceUUID;
     }
 }

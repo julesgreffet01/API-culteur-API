@@ -1,71 +1,77 @@
 import { ProjectService } from "./ProjectService"
 import { ProjectFilter } from "./ProjectFilter";
-import { Result } from "./../Utils/Result"
-import { Request } from "express";
+import { ProjectDAO } from "./ProjectDAO";
+import { Request, Response } from "express";
 
 
 export class ProjectController{
 
     private projectService = new ProjectService()
 
-    async Create(req: Request): Promise<Result> {
-        const { name } = req.query;
+    async Create(req: Request, res: Response){
+        const { name } = req.body;
+        const projectdao: ProjectDAO = {
+            id: 1,
+            name: name as string,
+            createdAt: new Date().toISOString(),
+            userId: 1
+        }
         try {
-            const project = this.projectService.Create(name as string);
-            return {
+            const project = await this.projectService.Create(projectdao);
+            res.json({
                 Success: true,
                 Data: project,
                 Message: "Création du projet réussi"
-            }
+            })
         } catch (err) {
-            return {
+            res.status(500).json({
                 Success: false,
                 Data: null,
                 ErrorCode: (err as Error).name,
                 Message: (err as Error).message
-            };
+            })
         }
     }
 
-    async GetById(req: Request): Promise<Result> {
-        const { id } = req.query;
+    async GetById(req: Request, res: Response){
+        const { id } = req.params;
         try {
-            const project = this.projectService.GetById(Number(id));
-            return {
+            const project = await this.projectService.GetById(Number(id));
+            res.json({
                 Success: true,
                 Data: project,
                 Message: "Resultat du projet"
-            }
+            })
         } catch (err) {
-            return {
+            res.status(500).json({
                 Success: false,
                 Data: null,
                 ErrorCode: (err as Error).name,
                 Message: (err as Error).message
-            };
+            })
         }
     }
 
 
-    async GetAll(req: Request): Promise<Result> {
+    async GetAll(req: Request, res: Response){
         const { name } = req.query;
         const filter : ProjectFilter = {
-            name: req.query.name as string
+            name: name as string
         }
         try {
-            const projects = this.projectService.GetAll(filter);
-            return {
+            const projects = await this.projectService.GetAll(filter);
+            res.json({
                 Success: true,
                 Data: projects,
                 Message: "Total des projets"
-            }
+            })
         } catch (err) {
-            return {
+            res.status(500).json({
                 Success: false,
                 Data: null,
                 ErrorCode: (err as Error).name,
                 Message: (err as Error).message
-            };
+            })
         }
     }
     

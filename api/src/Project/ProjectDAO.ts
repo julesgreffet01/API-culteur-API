@@ -1,6 +1,6 @@
 export type ProjectDAO = {
     id: number,
-    name: number,
+    name: string,
     createdAt: string
     userId: number
 }

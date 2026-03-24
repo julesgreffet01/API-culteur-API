@@ -1,0 +1,1 @@
+INSERT INTO users (username, password, name, role_id) values ('jules', '$2y$13$solLsktT/MY4ZoMHpu/twO89Sn41nO3fg3fj31SDTSN2Oe/hvcGL6', 'jules', 1), ('yann', '$2y$13$hzJ0/befuo6PvDWi7iqIJ.UfVgd5eihnKt9wlOPfe4ajYs.JJKKMa', 'yann', 3)

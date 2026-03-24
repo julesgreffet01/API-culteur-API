@@ -44,14 +44,14 @@ CREATE TABLE services (
 
 CREATE TABLE services_ports (
   port_id INT NOT NULL REFERENCES ports(id),
-  service_uuid TEXT NOT NULL REFERENCES services(uuid),
+  service_uuid UUID NOT NULL REFERENCES services(uuid),
   PRIMARY KEY (port_id, service_uuid)
 );
 
 CREATE TABLE monitorings_services (
   id SERIAL PRIMARY KEY,
   monitoring_id INT NOT NULL REFERENCES monitorings(id),
-  service_uuid TEXT NOT NULL REFERENCES services(uuid),
+  service_uuid UUID NOT NULL REFERENCES services(uuid),
   min_value INT,
   max_value INT,
   UNIQUE (monitoring_id, service_uuid)
@@ -75,7 +75,7 @@ CREATE USER user_manager WITH PASSWORD 'password';
 CREATE USER user_docker WITH PASSWORD 'password';
 CREATE USER user_api WITH PASSWORD 'password';
 
-GRANT CONNECT ON DATABASE api_culteur TO user_manager, user_docker, user_api;
+GRANT CONNECT ON DATABASE db_api_culteur TO user_manager, user_docker, user_api;
 
 GRANT USAGE ON SCHEMA public TO user_manager, user_docker, user_api;
 

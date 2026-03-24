@@ -16,7 +16,7 @@ export class ProjectRepository extends WriteRepository<ProjectDAO,Project>{
     
       async GetAll(filter?: ProjectFilter): Promise<Project[]>{
 
-        let query = `SELECT * FROM project`
+        let query = `SELECT * FROM projects`
         
         const conditions = [];
         const params = [];
@@ -52,7 +52,7 @@ export class ProjectRepository extends WriteRepository<ProjectDAO,Project>{
       }
     
       async GetById(id: number): Promise<Project | null>{
-        const res = await this.db.query(`SELECT * FROM project p WHERE p.id = $1`, [id])
+        const res = await this.db.query(`SELECT * FROM projects p WHERE p.id = $1`, [id])
 
         
         const user: User | undefined = await this.userServ.GetById(res.rows[0].user_id)
@@ -69,7 +69,7 @@ export class ProjectRepository extends WriteRepository<ProjectDAO,Project>{
     
       async Create(data: ProjectDAO): Promise<Project>{
 
-        const res = await this.db.query(`INSERT INTO project (name, user_id) VALUES ($1, $2) RETURNING *`, [data.name, data.userId])
+        const res = await this.db.query(`INSERT INTO projects (name, user_id) VALUES ($1, $2) RETURNING *`, [data.name, data.userId])
         
         const user: User | undefined = await this.userServ.GetById(res.rows[0].user_id)
         
@@ -84,7 +84,7 @@ export class ProjectRepository extends WriteRepository<ProjectDAO,Project>{
     
       async Update(data: ProjectDAO): Promise<Project>{
       const res = await this.db.query(
-          `UPDATE project 
+          `UPDATE projects 
            SET name = $1, created_at = $2, user_id = $3
            WHERE id = $4
            RETURNING *`,
@@ -104,7 +104,7 @@ export class ProjectRepository extends WriteRepository<ProjectDAO,Project>{
 
     
       async Delete(id: number): Promise<void>{
-        await this.db.query(`DELETE FROM project WHERE id = $1`,[id])
+        await this.db.query(`DELETE FROM projects WHERE id = $1`,[id])
       }
 
 }

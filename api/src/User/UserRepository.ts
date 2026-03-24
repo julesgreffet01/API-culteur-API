@@ -14,7 +14,7 @@ export class UserRepository extends ReadOnlyRepository<User>{
         let query = `
           SELECT u.id, u.username, u.password, u.name, r.libelle AS role 
           FROM users u
-          INNER JOIN Role r ON u.role_id = r.id
+          INNER JOIN Roles r ON u.role_id = r.id
           `
 
           const conditions = [];
@@ -58,7 +58,7 @@ export class UserRepository extends ReadOnlyRepository<User>{
         const res = await this.db.query(`
             SELECT u.id, u.username, u.password, u.name, r.libelle AS role
             FROM users u
-            INNER JOIN Role r ON u.role_id = r.id
+            INNER JOIN Roles r ON u.role_id = r.id
             WHERE u.id = $1
         `, [id]);
 

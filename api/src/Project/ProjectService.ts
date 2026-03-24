@@ -15,27 +15,13 @@ export class ProjectService{
         return this.projectRepo.GetAll(filter)
     }
 
-    async Create(data: ProjectFilter){
-        
-        const project: ProjectDAO = {
-            id:
-            name: data.name
-            createdAt:
-            userId:
-        }
-        return this.projectRepo.Create(project)
+    async Create(data: ProjectDAO){
+        return this.projectRepo.Create(data)
     }
 
 
-    async Update(data: ProjectFilter){
-        
-        const project: ProjectDAO = {
-            id:
-            name: data.name
-            createdAt:
-            userId:
-        }
-        return this.projectRepo.Update(project)
+    async Update(data: ProjectDAO){
+        return this.projectRepo.Update(data)
     }
 
     async Delete(id: number){

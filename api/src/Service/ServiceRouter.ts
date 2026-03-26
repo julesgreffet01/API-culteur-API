@@ -6,7 +6,7 @@ const router = Router()
 const controller = new MonitoringController()
 const controllerService = new ServiceController()
 
-router.get("/:id/Monitoring", (req, res) => controller.GetAllMonitorings(req, res));
+router.get("/:uuid/monitoring", (req, res) => controller.GetAllMonitorings(req, res));
 router.get("/:uuid", (req, res) => controllerService.GetById(req, res));
 
 

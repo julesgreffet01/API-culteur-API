@@ -10,11 +10,11 @@ export class MonitoringServiceModel {
     minValue: number;
     maxValue: number;
 
-    constructor(id: number, monitoringId: Monitoring, minValue: number, maxValue: number, serviceUUID: UUID) {
+    constructor(id: number, monitoringId: Monitoring, serviceUUID: UUID,minValue: number, maxValue: number ) {
         this.id = id;
-        this.minValue = minValue;
-        this.maxValue = maxValue;
         this.monitoringId = monitoringId;
         this.serviceUUID = serviceUUID;
+        this.minValue = minValue;
+        this.maxValue = maxValue;
     }
 }

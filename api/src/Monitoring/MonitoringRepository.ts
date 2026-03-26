@@ -49,6 +49,7 @@ export class MonitoringRepository extends WriteRepository<MonitoringServiceModel
         }));
         return monitoringServiceModels;
     }
+
     async GetAllMeasures(filter?: MonitoringFilter): Promise<MeasureModel[]> {
         let query = `
         SELECT 
@@ -64,9 +65,9 @@ export class MonitoringRepository extends WriteRepository<MonitoringServiceModel
             me.value,
             me.measured_at
     
-        FROM monitoring_services ms
+        FROM monitorings_services ms
         INNER JOIN monitorings m ON ms.monitoring_id = m.id
-        LEFT JOIN measure me ON me.monitoring_id = ms.id
+        LEFT JOIN measures me ON me.monitoring_service_id = ms.id
     
         WHERE ms.service_uuid = $1
         `;
@@ -83,7 +84,9 @@ export class MonitoringRepository extends WriteRepository<MonitoringServiceModel
         query += ` ORDER BY me.measured_at DESC`;
 
         const res = await this.db.query(query, params);
-
+        console.log(query);
+        console.log('-------------');
+        console.log(params);
         const measures: MeasureModel[] = res.rows
             .filter(data => data.measure_id !== null) // évite les null si pas de measure
             .map(data => {

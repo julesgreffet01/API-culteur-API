@@ -10,10 +10,9 @@ export class MonitoringController {
 
     async GetAllMonitorings(req: Request, res: Response) {
         const {name} = req.query;
-        const {serviceUUID} = req.query;
+        const {uuid} = req.params;
         const filter : MonitoringFilter = {
-            serviceUUID: serviceUUID as UUID,
-            name: name as string
+            serviceUUID: uuid as UUID,
         }
         try{
             const monitoring  = await this.MonitoringServiceService.GetAllMeasures(filter);

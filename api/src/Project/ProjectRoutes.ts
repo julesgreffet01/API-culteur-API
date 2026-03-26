@@ -10,7 +10,9 @@ const controllerService = new ServiceController()
 
 router.get("/", (req, res) => controller.GetAll(req, res));
 router.get("/:id", (req, res) => controller.GetById(req, res));
-router.post("/create", (req, res) => controller.Create(req, res));
+router.post("/", (req, res) => controller.Create(req, res));
+router.put("/:id", (req, res) => controller.Create(req, res));
+router.delete("/:id", (req, res) => controller.Create(req, res));
 router.get("/:id/services", (req, res) => controllerService.GetAll(req, res));
 
 

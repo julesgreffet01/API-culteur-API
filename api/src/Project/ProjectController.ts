@@ -32,6 +32,54 @@ export class ProjectController{
             })
         }
     }
+    
+    
+    async Update(req: Request, res: Response){
+        
+        const id = req.params.id;
+
+        const { name } = req.body;
+        const projectdao: ProjectDAO = {
+            id: Number(id),
+            name: name as string,
+            createdAt: new Date().toISOString(),
+            userId: 1
+        }
+        try {
+            const project = await this.projectService.Update(projectdao);
+            res.json({
+                Success: true,
+                Data: project,
+                Message: "Modification du projet réussi"
+            })
+        } catch (err) {
+            res.status(500).json({
+                Success: false,
+                Data: null,
+                ErrorCode: (err as Error).name,
+                Message: (err as Error).message
+            })
+        }
+    }
+
+    async Delete(req: Request, res: Response){
+        const { id } = req.body;
+        try {
+            const project = await this.projectService.Delete(id);
+            res.json({
+                Success: true,
+                Data: project,
+                Message: "Projet Supprimé"
+            })
+        } catch (err) {
+            res.status(500).json({
+                Success: false,
+                Data: null,
+                ErrorCode: (err as Error).name,
+                Message: (err as Error).message
+            })
+        }
+    }
 
     async GetById(req: Request, res: Response){
         const { id } = req.params;

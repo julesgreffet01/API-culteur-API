@@ -1,4 +1,3 @@
-import { UUID } from "node:crypto";
 import { Service } from "././ServiceModel";
 import { ServiceRepository } from "./ServiceRepository";
 
@@ -6,12 +5,12 @@ export class ServiceService{
 
     private serviceRepo = new ServiceRepository();
 
-    async GetById(id: UUID): Promise<Service | undefined> {
+    async GetById(id: string): Promise<Service | undefined> {
         return await this.serviceRepo.GetById(id) ?? undefined;
     }
 
-    async GetAll(): Promise<Service[]>{
-        return this.serviceRepo.GetAll()
+    async GetAll(id: number): Promise<Service[]>{
+        return this.serviceRepo.GetAll(id)
     }
 
 }

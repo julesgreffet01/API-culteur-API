@@ -9,6 +9,6 @@ export abstract class ReadOnlyRepository<T, F = any> {
 
   abstract GetAll(filter? : F): Promise<T[] | null>;
 
-  abstract GetById(id: number | UUID): Promise<T | null>;
+  abstract GetById(id: number | string): Promise<T | null>;
 
 }

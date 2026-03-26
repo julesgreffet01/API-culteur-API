@@ -12,17 +12,18 @@ export class ServiceRepository extends ReadOnlyRepository<Service>{
         super(db);
       }
     
-      async GetAll(): Promise<Service[] | null>{
+      async GetAll(id: number): Promise<Service[]>{
         const res = await this.db.query(`
             SELECT s.uuid, s.image , s.started_since, s.name AS sname,
             p.id AS pid, p.name AS pname, p.created_at,
             st.id AS sid, st.libelle
             FROM services s
             INNER JOIN projects p ON s.project_id = p.id
-            INNER JOIN status st ON s.status_id = st.id`);
+            INNER JOIN status st ON s.status_id = st.id
+            WHERE s.project_id = $1`, [id]);
 
             if (res.rows.length === 0) 
-                {return null;
+                {return [];
             }
 
             const services :Service[] = []
@@ -30,7 +31,7 @@ export class ServiceRepository extends ReadOnlyRepository<Service>{
             for (const data of res.rows) {
                 const resport = await this.db.query(`
                     SELECT sp.port_id, p.libelle from services_ports sp 
-                    INNER JOIN port p on sp.port_id = p.id
+                    INNER JOIN ports p on sp.port_id = p.id
                     WHERE sp.service_uuid = $1
                     `, [data.uuid])
 
@@ -66,7 +67,7 @@ export class ServiceRepository extends ReadOnlyRepository<Service>{
       }
 
     
-      async GetById(Id: UUID): Promise<Service | null>{
+      async GetById(Id: string): Promise<Service | null>{
         const res = await this.db.query(`
             SELECT s.uuid, s.image , s.started_since, s.name AS sname,
             p.id AS pid, p.name AS pname, p.created_at,
@@ -81,7 +82,7 @@ export class ServiceRepository extends ReadOnlyRepository<Service>{
             }
             const resport = await this.db.query(`
                 SELECT sp.port_id, p.libelle from services_ports sp 
-                INNER JOIN port p on sp.port_id = p.id
+                INNER JOIN ports p on sp.port_id = p.id
                 WHERE sp.service_uuid = $1
                 `, [Id])
 

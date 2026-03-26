@@ -1,9 +1,14 @@
 import { Router } from "express"
 import {MonitoringController} from "../Monitoring/MonitoringController";
+import { ServiceController } from "./ServiceController";
 
 const router = Router()
 const controller = new MonitoringController()
+const controllerService = new ServiceController()
 
 router.get("/:id/Monitoring", (req, res) => controller.GetAllMonitorings(req, res));
+router.get("/:uuid", (req, res) => controllerService.GetById(req, res));
 
-export const ServiceRoutes = router;
+
+
+export const ServiceRouter = router;

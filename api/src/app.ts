@@ -1,5 +1,6 @@
 import { ProjectRouter } from "./Project/ProjectRoutes";
 import { UserRouter } from "./User/UserRoutes"
+import { ServiceRouter } from "./Service/ServiceRouter"
 import express, { Request, Response } from "express";
 
 const app = express();
@@ -15,6 +16,8 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use("/users", UserRouter);
 app.use("/projects", ProjectRouter);
+app.use("/services", ServiceRouter);
+
 
 app.listen(PORT, () => {
   console.log(`Serveur lancé sur http://localhost:${PORT}`);

@@ -12,4 +12,8 @@ export class UserService {
     async GetAll(filter?: UserFilter): Promise<User[]>{
         return await this.userRepo.GetAll(filter)
     }
+
+    async getRole(userId: number): Promise<string> {
+        return await this.userRepo.getRoleByUserId(userId)
+    }
 } 

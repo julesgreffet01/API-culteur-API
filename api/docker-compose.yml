@@ -1,0 +1,16 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./dockers/Dockerfile
+    ports:
+      - "9000:8080"
+    networks:
+      - caddy_net
+      - api-culteur-network
+    container_name: express_api-culteur
+networks:
+  caddy_net:
+    external: true
+  api-culteur-network:
+    external: true

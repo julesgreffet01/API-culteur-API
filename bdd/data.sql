@@ -30,31 +30,31 @@ INSERT INTO monitorings_services (id, monitoring_id, service_uuid, min_value, ma
 
 INSERT INTO measures (monitoring_service_id, value, measured_at) VALUES
 -- Monitoring Service 1
-    (1, 12, NOW() - INTERVAL '10 minutes'),
-    (1, 15, NOW() - INTERVAL '8 minutes'),
-    (1, 14, NOW() - INTERVAL '5 minutes'),
+(1, 12, NOW() - INTERVAL '2 days'),
+(1, 15, NOW() - INTERVAL '8 minutes'),
+(1, 14, NOW() - INTERVAL '5 minutes'),
 
 -- Monitoring Service 2
-    (2, 30, NOW() - INTERVAL '12 minutes'),
-    (2, 28, NOW() - INTERVAL '7 minutes'),
-    (2, 35, NOW() - INTERVAL '3 minutes'),
+(2, 30, NOW() - INTERVAL '12 minutes'),
+(2, 28, NOW() - INTERVAL '7 minutes'),
+(2, 35, NOW() - INTERVAL '3 minutes'),
 
 -- Monitoring Service 3
-    (3, 50, NOW() - INTERVAL '15 minutes'),
-    (3, 55, NOW() - INTERVAL '10 minutes'),
-    (3, 53, NOW() - INTERVAL '2 minutes'),
+(3, 50, NOW() - INTERVAL '15 minutes'),
+(3, 55, NOW() - INTERVAL '10 minutes'),
+(3, 53, NOW() - INTERVAL '2 minutes'),
 
 -- Monitoring Service 4
-    (4, 70, NOW() - INTERVAL '20 minutes'),
-    (4, 65, NOW() - INTERVAL '10 minutes'),
-    (4, 68, NOW() - INTERVAL '1 minutes'),
+(4, 70, NOW() - INTERVAL '20 minutes'),
+(4, 65, NOW() - INTERVAL '10 minutes'),
+(4, 68, NOW() - INTERVAL '1 minute'),
 
 -- Monitoring Service 5
-    (5, 90, NOW() - INTERVAL '25 minutes'),
-    (5, 85, NOW() - INTERVAL '15 minutes'),
-    (5, 88, NOW() - INTERVAL '5 minutes'),
+(5, 90, NOW() - INTERVAL '25 minutes'),
+(5, 85, NOW() - INTERVAL '15 minutes'),
+(5, 88, NOW() - INTERVAL '5 minutes'),
 
 -- Monitoring Service 8
-    (8, 110, NOW() - INTERVAL '30 minutes'),
-    (8, 105, NOW() - INTERVAL '20 minutes'),
-    (8, 115, NOW() - INTERVAL '10 minutes');
+(8, 110, NOW() - INTERVAL '30 minutes'),
+(8, 105, NOW() - INTERVAL '20 minutes'),
+(8, 115, NOW() - INTERVAL '10 minutes');

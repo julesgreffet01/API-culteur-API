@@ -2,6 +2,8 @@ import { ProjectRouter } from "./Project/ProjectRoutes";
 import { UserRouter } from "./User/UserRoutes"
 import { ServiceRouter } from "./Service/ServiceRouter"
 import express, { Request, Response } from "express";
+import {AuthRouter} from "./Auth/AuthRoutes";
+import {verifyTokenMiddleware} from "./Auth/AuthMiddleware";
 
 const app = express();
 const PORT = 8080;
@@ -9,14 +11,24 @@ const PORT = 8080;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// pour  perùettre a l id  sur toute la requete
+declare global {
+  namespace Express {
+    interface Request {
+      userId?: number;
+    }
+  }
+}
+
 
 app.get('/', (req: Request, res: Response) => {
   res.json({ message: 'API principale fonctionne !' });
 });
 
-app.use("/users", UserRouter);
-app.use("/projects", ProjectRouter);
-app.use("/services", ServiceRouter);
+app.use("/users", verifyTokenMiddleware, UserRouter);
+app.use("/projects",verifyTokenMiddleware, ProjectRouter);
+app.use("/services",verifyTokenMiddleware, ServiceRouter);
+app.use("/auth", AuthRouter);
 
 
 app.listen(PORT, () => {

@@ -76,4 +76,11 @@ export class UserRepository extends ReadOnlyRepository<User>{
         return user;
     }
 
+    async getRoleByUserId(id: number): Promise<string> {
+          const query = "SELECT r.libelle from roles r inner join users u ON u.role_id = r.id WHERE u.id = $1";
+          const res = await this.db.query(query, [id]);
+          if (res.rows.length === 0) throw new Error("no role for this user");
+          return res.rows[0].libelle;
+    }
+
 }

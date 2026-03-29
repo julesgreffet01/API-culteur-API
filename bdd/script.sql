@@ -28,7 +28,7 @@ CREATE TABLE users (
 
 CREATE TABLE projects (
   id SERIAL PRIMARY KEY,
-  name VARCHAR(50) NOT NULL,
+  name VARCHAR(50) NOT NULL UNIQUE,
   created_at TIMESTAMP NOT NULL DEFAULT now(),
   user_id INT NOT NULL REFERENCES users(id)
 );

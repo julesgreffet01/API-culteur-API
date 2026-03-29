@@ -5,12 +5,13 @@ import express, { Request, Response } from "express";
 import {AuthRouter} from "./Auth/AuthRoutes";
 import {verifyTokenMiddleware} from "./Auth/AuthMiddleware";
 import {logMiddleware} from "./Logs/LogMiddleware";
-
+import cors from "cors"
 const app = express();
 const PORT = 8080;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 app.set("trust proxy", true);
 
 // pour  perùettre a l id  sur toute la requete

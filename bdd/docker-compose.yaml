@@ -12,10 +12,13 @@ services:
       POSTGRES_PASSWORD: example
       POSTGRES_DB: db_api_culteur
       POSTGRES_USER: postgres
-    ports:
-      - 5433:5432
     networks:
       - api-culteur-network
+    healthcheck:
+      test: ["CMD", "pg_isready", "-d", "db_api_culteur", "-U", "postgres"]
+      timeout: 5s
+      retries: 5
+      start_period: 60s
 
 volumes:
   db_data:
@@ -23,3 +26,4 @@ volumes:
     
 networks:
   api-culteur-network:
+    name: api-culteur-network

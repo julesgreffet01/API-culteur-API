@@ -54,4 +54,23 @@ export class UserController{
         }
     }
 
+    async GetMe(req: Request, res: Response) {
+        const id = req.userId!;
+        try {
+            const user = await this.userService.GetById(Number(id));
+            res.json({
+                Success: true,
+                Data: user,
+                Message: "Resultat du user"
+            })
+        } catch (err) {
+            res.json({
+                Success: false,
+                Data: null,
+                ErrorCode: (err as Error).name,
+                Message: (err as Error).message
+            })
+        }
+    }
+
 }

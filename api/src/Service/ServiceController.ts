@@ -54,9 +54,9 @@ export class ServiceController {
     }
 
     async Create(req: Request, res: Response): Promise<void> {
-        const {projectId} = req.params;
+        const {project_id} = req.params;
         const {name, image, ports} = req.body
-        const project = await this.projectRepository.GetById(Number(projectId));
+        const project = await this.projectRepository.GetById(Number(project_id));
         if(!project){
             res.status(400).json({
                 Success: false,

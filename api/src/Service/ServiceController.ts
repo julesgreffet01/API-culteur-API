@@ -57,6 +57,7 @@ export class ServiceController {
         const {project_id} = req.params;
         console.log("CREATE");
         const {name, image, ports} = req.body
+        console.log(req.body);
         const project = await this.projectRepository.GetById(Number(project_id));
         if(!project){
             res.status(400).json({

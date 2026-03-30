@@ -16,8 +16,10 @@ export class DockerManagerAdapter {
                 projectid: service.Project.Id,
                 ports: service.Ports,
             }),
-        }).then(res => res.text())
-        console.log(reqToGo)
+        }).then(res => res.json())
+        if(reqToGo.Success === false){
+            throw new Error(reqToGo.Error)
+        }
         return service
     }
 

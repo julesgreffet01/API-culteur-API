@@ -56,7 +56,7 @@ export class ServiceController {
     async Create(req: Request, res: Response): Promise<void> {
         const {project_id} = req.params;
         console.log("CREATE");
-        const {name, image, ports} = req.body
+        const {Name, Image, Ports} = req.body
         console.log(req.body);
         const project = await this.projectRepository.GetById(Number(project_id));
         if(!project){
@@ -68,7 +68,7 @@ export class ServiceController {
             return
         }
 
-        const resultPorts: Port[] = ports.map((portString: string) => {
+        const resultPorts: Port[] = Ports.map((portString: string) => {
             return {
                 Id: 0,
                 Libelle: portString
@@ -76,8 +76,8 @@ export class ServiceController {
         });
         const service: Service = {
             Uuid: "",
-            Image: image,
-            Name: name,
+            Image: Image,
+            Name: Name,
             Status: null,
             StartedSince: new Date(), //on s en fout de ca
             Ports: resultPorts,

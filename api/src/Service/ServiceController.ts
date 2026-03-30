@@ -55,6 +55,7 @@ export class ServiceController {
 
     async Create(req: Request, res: Response): Promise<void> {
         const {project_id} = req.params;
+        console.log("CREATE");
         const {name, image, ports} = req.body
         const project = await this.projectRepository.GetById(Number(project_id));
         if(!project){
@@ -82,7 +83,7 @@ export class ServiceController {
             Project: project,
         }
         try{
-            await this.serviceService.Create(req.body);
+            await this.serviceService.Create(service);
             res.status(200).json({
                 Success: true,
                 Data: service,

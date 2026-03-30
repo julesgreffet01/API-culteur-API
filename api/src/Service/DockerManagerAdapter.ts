@@ -14,7 +14,7 @@ export class DockerManagerAdapter {
                 status_id: 0,
                 name: service.Name,
                 projectid: service.Project.Id,
-                ports: JSON.stringify(service.Ports),
+                ports: service.Ports,
             }),
         }).then(res => res.text())
         console.log(reqToGo)

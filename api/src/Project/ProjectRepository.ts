@@ -53,7 +53,6 @@ export class ProjectRepository extends WriteRepository<ProjectDAO,Project>{
     
       async GetById(id: number): Promise<Project | null>{
         const res = await this.db.query(`SELECT * FROM projects p WHERE p.id = $1`, [id])
-        console.log("create repo")
         
         const user: User | undefined = await this.userServ.GetById(res.rows[0].user_id)
 

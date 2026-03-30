@@ -74,4 +74,8 @@ CREATE TABLE logs (
 INSERT INTO roles (libelle) values ('admin'), ('dev_ops'), ('developer');
 INSERT INTO "status" (libelle) values ('up'), ('starting'), ('stop'), ('down');
 
+INSERT INTO users (username, password, name, role_id) VALUES 
+('jules', '$2y$13$solLsktT/MY4ZoMHpu/twO89Sn41nO3fg3fj31SDTSN2Oe/hvcGL6', 'jules', 1),
+('yann', '$2y$13$hzJ0/befuo6PvDWi7iqIJ.UfVgd5eihnKt9wlOPfe4ajYs.JJKKMa', 'yann', 3);
+
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";

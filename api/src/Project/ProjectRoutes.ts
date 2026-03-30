@@ -11,10 +11,13 @@ const controllerService = new ServiceController()
 
 router.get("/", (req, res) => controller.GetAll(req, res));
 router.get("/:id", (req, res) => controller.GetById(req, res));
-router.post("/",verifyDevopsMiddleware, (req, res) => controller.Create(req, res));
-router.put("/:id",verifyDevopsMiddleware, (req, res) => controller.Update(req, res));
-router.delete("/:id",verifyDevopsMiddleware, (req, res) => controller.Delete(req, res));
+router.post("/", verifyDevopsMiddleware, (req, res) => controller.Create(req, res));
+router.put("/:id", verifyDevopsMiddleware, (req, res) => controller.Update(req, res));
+router.delete("/:id", verifyDevopsMiddleware, (req, res) => controller.Delete(req, res));
 router.get("/:id/services", (req, res) => controllerService.GetAll(req, res));
 router.get("/servicesCount/:id", (req, res) => controllerService.GetCountServiceOfProject(req, res));
+router.post("/:project_id/services", async (req, res) => controllerService.Create(req, res));
+
+
 
 export const ProjectRouter = router;

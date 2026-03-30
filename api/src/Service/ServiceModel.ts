@@ -10,7 +10,7 @@ export class Service {
     StartedSince: Date;
     Name: string;
     Project: Project;
-    Status: Status;
+    Status: Status | null;
     Ports: Port[];
 
     constructor(Uuid: string, Image: string , StartedSince: Date ,Name: string , Project: Project, Status: Status, Ports: Port[]){

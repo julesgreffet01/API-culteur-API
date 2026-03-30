@@ -1,9 +1,11 @@
 import { Service } from "./ServiceModel";
 import { ServiceRepository } from "./ServiceRepository";
+import {DockerManagerAdapter} from "./DockerManagerAdapter";
 
 export class ServiceService{
 
     private serviceRepo = new ServiceRepository();
+    private dockerManagerAdapter = new DockerManagerAdapter();
 
     async GetById(id: string): Promise<Service | undefined> {
         return await this.serviceRepo.GetById(id) ?? undefined;
@@ -14,26 +16,27 @@ export class ServiceService{
     }
 
     async Create(service: Service): Promise<Service> {
-
+        return await this.dockerManagerAdapter.CreateService(service);
     }
 
-    async Update(id: string, service: Service): Promise<Service> {
+    // async Update(id: string, service: Service): Promise<Service> {
+    //     service.Uuid = id;
+    //     this.serviceRepo.Update(service);        //todo a faire
+    // }
 
+    async Delete(id: string): Promise<void> {
+        return await this.dockerManagerAdapter.DeleteService(id)
     }
 
-    async Delete(id: string): Promise<Service> {
-
+    async Start(id: string): Promise<void> {
+        return await this.dockerManagerAdapter.StartService(id)
     }
 
-    async Start(service: Service): Promise<Service> {
-
+    async Stop(id: string): Promise<void> {
+        return await this.dockerManagerAdapter.StopService(id)
     }
 
-    async Stop(service: Service): Promise<Service> {
-
-    }
-
-    async Restart(service: Service): Promise<Service> {
-
+    async Restart(id: string): Promise<void> {
+        return await this.dockerManagerAdapter.RestartService(id)
     }
 }

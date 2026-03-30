@@ -1,9 +1,14 @@
 import {ServiceService} from "./ServiceService";
 import {Request, Response} from "express";
 import {Service} from "./ServiceModel";
+import {Result} from "../Utils/Result";
+import {ProjectRepository} from "../Project/ProjectRepository";
+import {Port} from "./PortModel";
+import {Project} from "../Project/ProjectModel";
 
 export class ServiceController {
     private serviceService = new ServiceService()
+    private projectRepository = new ProjectRepository()
 
     async GetAll(req: Request, res: Response) {
         try {
@@ -48,27 +53,68 @@ export class ServiceController {
         }
     }
 
-    async Create(req: Request, res: Response): Promise<Service> {
+    async Create(req: Request, res: Response): Promise<void> {
+        const {projectId} = req.params;
+        const {name, image, ports} = req.body
+        const project = await this.projectRepository.GetById(Number(projectId));
+        if(!project){
+            res.status(400).json({
+                Success: false,
+                ErrorCode: "400",
+                Message: "Project not found"
+            })
+            return
+        }
+
+        const resultPorts: Port[] = ports.map((portString: string) => {
+            return {
+                Id: 0,
+                Libelle: portString
+            };
+        });
+        const service: Service = {
+            Uuid: "",
+            Image: image,
+            Name: name,
+            Status: null,
+            StartedSince: new Date(), //on s en fout de ca
+            Ports: resultPorts,
+            Project: project,
+        }
+        try{
+            await this.serviceService.Create(req.body);
+            res.status(200).json({
+                Success: true,
+                Data: service,
+                Message: "Created service"
+            })
+        } catch (err) {
+            res.status(500).json({
+                Success: false,
+                ErrorCode: "500",
+                Message: (err as Error).message
+            })
+        }
 
     }
 
-    async Update(req: Request, res: Response): Promise<Service> {
-        const { uuid } = req.params;
-    }
-
-    async Delete(req: Request, res: Response): Promise<Service> {
-        const { uuid } = req.params;
-    }
-
-    async Start(req: Request, res: Response): Promise<Service> {
-        const { uuid } = req.params;
-    }
-
-    async Stop(req: Request, res: Response): Promise<Service> {
-        const { uuid } = req.params;
-    }
-
-    async Restart(req: Request, res: Response): Promise<Service> {
-        const { uuid } = req.params;
-    }
+    // async Update(req: Request, res: Response): Promise<Service> {
+    //     const { uuid } = req.params;
+    // }
+    //
+    // async Delete(req: Request, res: Response): Promise<Service> {
+    //     const { uuid } = req.params;
+    // }
+    //
+    // async Start(req: Request, res: Response): Promise<Service> {
+    //     const { uuid } = req.params;
+    // }
+    //
+    // async Stop(req: Request, res: Response): Promise<Service> {
+    //     const { uuid } = req.params;
+    // }
+    //
+    // async Restart(req: Request, res: Response): Promise<Service> {
+    //     const { uuid } = req.params;
+    // }
 }

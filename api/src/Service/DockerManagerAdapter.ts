@@ -4,11 +4,44 @@ import {Service} from "./ServiceModel";
 export class DockerManagerAdapter {
 
     private baseUrlService = "http://docker-manager-go-1:8080"
-    async createService(service: ServiceRepository) {
-
+    async CreateService(service: Service): Promise<Service> {
+        const reqToGo = await fetch(`${this.baseUrlService}/services/create`, {
+            method: "POST",
+            body: JSON.stringify({
+                image: service.Image,
+                name: service.Name,
+                projectid: service.Project.Id,
+                ports: JSON.stringify(service.Ports),
+            }),
+        })
+        console.log(reqToGo)
+        return service
     }
 
-    async deleteService(id: string): Promise<Service> {
+    async DeleteService(id: string): Promise<void> {
+        const reqToGo = await fetch(`${this.baseUrlService}/services/${id}/delete`, {
+            method: "DELETE",
+        })
+        console.log(reqToGo)
+    }
 
+    async StartService(id: string): Promise<void> {
+        const reqToGo = await fetch(`${this.baseUrlService}/services/${id}/start`, {
+            method: "POST",
+        })
+        console.log(reqToGo)
+    }
+    async RestartService(id: string): Promise<void> {
+        const reqToGo = await fetch(`${this.baseUrlService}/services/${id}/restart`, {
+            method: "POST",
+        })
+        console.log(reqToGo)
+    }
+
+    async StopService(id: string): Promise<void> {
+        const reqToGo = await fetch(`${this.baseUrlService}/services/${id}/stop`, {
+            method: "POST",
+        })
+        console.log(reqToGo)
     }
 }

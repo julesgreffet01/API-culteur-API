@@ -63,9 +63,9 @@ export class ProjectController{
     }
 
     async Delete(req: Request, res: Response){
-        const { id } = req.body;
+        const { id } = req.params;
         try {
-            const project = await this.projectService.Delete(id);
+            const project = await this.projectService.Delete(Number(id));
             res.json({
                 Success: true,
                 Data: project,

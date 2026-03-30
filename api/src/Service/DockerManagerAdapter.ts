@@ -13,7 +13,7 @@ export class DockerManagerAdapter {
                 projectid: service.Project.Id,
                 ports: JSON.stringify(service.Ports),
             }),
-        })
+        }).then(res => res.text())
         console.log(reqToGo)
         return service
     }

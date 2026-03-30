@@ -98,9 +98,26 @@ export class ServiceController {
 
     }
 
-    // async Update(req: Request, res: Response): Promise<Service> {
-    //     const { uuid } = req.params;
-    // }
+    async Update(req: Request, res: Response): Promise<void> {
+        try {
+            const { uuid } = req.params;
+            const {name} = req.body;
+            await this.serviceService.Update(uuid as string, name)
+            res.status(200).json({
+                Success: true,
+                Data: name,
+                Message: "Updated service"
+            })
+        } catch (err) {
+            res.status(500).json({
+                Success: false,
+                ErrorCode: "500",
+                Message: (err as Error).message
+            })
+            return
+        }
+
+    }
     //
     // async Delete(req: Request, res: Response): Promise<Service> {
     //     const { uuid } = req.params;

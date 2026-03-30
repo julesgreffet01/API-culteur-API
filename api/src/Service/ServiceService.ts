@@ -22,8 +22,8 @@ export class ServiceService{
         return await this.dockerManagerAdapter.CreateService(service);
     }
 
-    async Update(id: string, service: Service): Promise<Service> {
-        return await this.serviceRepo.Update({name: service.Name, id: id});
+    async Update(id: string, name: string): Promise<Service> {
+        return await this.serviceRepo.Update({name: name, id: id});
     }
 
     async Delete(id: string): Promise<void> {

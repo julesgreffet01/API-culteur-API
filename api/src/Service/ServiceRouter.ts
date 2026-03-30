@@ -9,7 +9,7 @@ const controllerService = new ServiceController()
 router.get("/:uuid/monitoring", (req, res) => controller.GetAllMonitorings(req, res));
 router.get("/:uuid", (req, res) => controllerService.GetById(req, res));
 
-// router.put("/:uuid", async (req, res) => controllerService.Update(req, res));
+router.put("/:uuid", async (req, res) => controllerService.Update(req, res));
 // router.delete("/:uuid", async (req, res) => controllerService.Delete(req, res));
 //
 // router.post("/:uuid/start", async (req, res) => controllerService.Start(req, res));

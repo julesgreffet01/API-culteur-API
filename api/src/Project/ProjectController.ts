@@ -9,12 +9,12 @@ export class ProjectController{
     private projectService = new ProjectService()
 
     async Create(req: Request, res: Response){
-        const { name } = req.body;
+        const { name, userId} = req.body;
         const projectdao: ProjectDAO = {
-            id: 1,
+            id: 0,
             name: name as string,
             createdAt: new Date().toISOString(),
-            userId: 1
+            userId: userId,
         }
         try {
             const project = await this.projectService.Create(projectdao);

@@ -83,23 +83,23 @@ export class ProjectRepository extends WriteRepository<ProjectDAO,Project>{
       }
     
       async Update(data: ProjectDAO): Promise<Project>{
-      const res = await this.db.query(
-          `UPDATE projects 
-           SET name = $1, created_at = $2, user_id = $3
-           WHERE id = $4
-           RETURNING *`,
-          [data.name, data.createdAt, data.userId, data.id]
-      );      
+        const res = await this.db.query(
+            `UPDATE projects 
+             SET name = $1, created_at = $2, user_id = $3
+             WHERE id = $4
+             RETURNING *`,
+            [data.name, data.createdAt, data.userId, data.id]
+        );
 
-      const user = await this.userServ.GetById(res.rows[0].user_id);      
+        const user = await this.userServ.GetById(res.rows[0].user_id);
 
-      const project: Project =  {
-          Id: res.rows[0].id,
-          Name: res.rows[0].name,
-          CreatedAt: res.rows[0].created_at,
-          User: user
-      }
-      return project
+        const project: Project =  {
+            Id: res.rows[0].id,
+            Name: res.rows[0].name,
+            CreatedAt: res.rows[0].created_at,
+            User: user
+        }
+        return project
       }
 
     

@@ -1,12 +1,37 @@
 import { ReadOnlyRepository } from "../BasicSkeleton/ReadOnlyRepository";
 import { Service } from "./ServiceModel";
-import { Project } from "./../Project/ProjectModel";
+import { Project } from "../Project/ProjectModel";
 import { Status } from "./StatusModel";
 import { Port } from "./PortModel";
 import { db } from "../Db/Db";
 import { UUID } from "node:crypto";
+import {WriteRepository} from "../BasicSkeleton/WriteRepository";
 
-export class ServiceRepository extends ReadOnlyRepository<Service>{
+export class ServiceRepository extends WriteRepository<{name?: string, id: string}, Service>{
+
+    Create(data: { name?: string; }): Promise<Service> {
+        throw new Error("Method not implemented.");
+    }
+    async Update(data: { name?: string, id: string }): Promise<Service> {
+        const service = await this.GetById(data.id);
+        if(!service){
+            throw new Error("Service not found");
+        }
+        if(data.name){
+            await this.db.query(
+                `UPDATE projects 
+             SET name = $1
+             WHERE id = $2
+             RETURNING *`,
+                [data.name, data.id]
+            );
+            service.Name = data.name
+        }
+        return service
+    }
+    Delete(id: number): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
 
       constructor() {
         super(db);

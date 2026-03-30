@@ -34,7 +34,7 @@ CREATE TABLE projects (
 );
 
 CREATE TABLE services (
-  uuid UUID PRIMARY KEY,
+  uuid VARCHAR(255) PRIMARY KEY,
   image VARCHAR(100),
   started_since TIMESTAMP NOT NULL DEFAULT now(),
   name VARCHAR(50) NOT NULL,
@@ -70,21 +70,6 @@ CREATE TABLE logs (
   user_id INT REFERENCES users(id),
   created_at TIMESTAMP DEFAULT now()
 );
-
-CREATE USER user_manager WITH PASSWORD 'password';
-CREATE USER user_docker WITH PASSWORD 'password';
-CREATE USER user_api WITH PASSWORD 'password';
-
-GRANT CONNECT ON DATABASE db_api_culteur TO user_manager, user_docker, user_api;
-
-GRANT USAGE ON SCHEMA public TO user_manager, user_docker, user_api;
-
-GRANT SELECT ON ALL TABLES IN SCHEMA public TO user_manager;
-GRANT INSERT, UPDATE, DELETE ON services TO user_docker;
-GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO user_api;
-
-GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO user_api;
-GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO user_manager;
 
 INSERT INTO roles (libelle) values ('admin'), ('dev_ops'), ('developer');
 INSERT INTO "status" (libelle) values ('up'), ('starting'), ('stop'), ('down');

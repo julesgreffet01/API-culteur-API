@@ -15,6 +15,8 @@ router.post("/", verifyDevopsMiddleware, (req, res) => controller.Create(req, re
 router.put("/:id", verifyDevopsMiddleware, (req, res) => controller.Update(req, res));
 router.delete("/:id", verifyDevopsMiddleware, (req, res) => controller.Delete(req, res));
 router.get("/:id/services", (req, res) => controllerService.GetAll(req, res));
+router.post("/:project_id/services", async (req, res) => controllerService.Create(req, res));
+
 
 
 export const ProjectRouter = router;

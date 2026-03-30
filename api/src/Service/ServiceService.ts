@@ -1,4 +1,4 @@
-import { Service } from "././ServiceModel";
+import { Service } from "./ServiceModel";
 import { ServiceRepository } from "./ServiceRepository";
 
 export class ServiceService{
@@ -13,4 +13,27 @@ export class ServiceService{
         return this.serviceRepo.GetAll(id)
     }
 
+    async Create(service: Service): Promise<Service> {
+
+    }
+
+    async Update(id: string, service: Service): Promise<Service> {
+
+    }
+
+    async Delete(id: string): Promise<Service> {
+
+    }
+
+    async Start(service: Service): Promise<Service> {
+
+    }
+
+    async Stop(service: Service): Promise<Service> {
+
+    }
+
+    async Restart(service: Service): Promise<Service> {
+
+    }
 }

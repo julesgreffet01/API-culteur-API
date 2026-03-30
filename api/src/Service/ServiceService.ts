@@ -42,5 +42,4 @@ export class ServiceService{
     async Restart(id: string): Promise<void> {
         return await this.dockerManagerAdapter.RestartService(id)
     }
-    }
 }

@@ -9,7 +9,7 @@ export class ProjectController{
     private projectService = new ProjectService()
 
     async Create(req: Request, res: Response){
-        const { name, userId} = req.body;
+        const { name, userId } = req.body;
         const projectdao: ProjectDAO = {
             id: 0,
             name: name as string,
@@ -38,12 +38,12 @@ export class ProjectController{
         
         const id = req.params.id;
 
-        const { name } = req.body;
+        const { name, userId } = req.body;
         const projectdao: ProjectDAO = {
             id: Number(id),
             name: name as string,
             createdAt: new Date().toISOString(),
-            userId: 1
+            userId: userId
         }
         try {
             const project = await this.projectService.Update(projectdao);

@@ -12,5 +12,8 @@ export class ServiceService{
     async GetAll(id: number): Promise<Service[]>{
         return this.serviceRepo.GetAll(id)
     }
+    async getCount(id: number): Promise<number>{
+        return this.serviceRepo.getCount(id)
 
+    }
 }

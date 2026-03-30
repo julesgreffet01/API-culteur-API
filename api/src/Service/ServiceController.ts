@@ -15,7 +15,7 @@ export class ServiceController{
                     Data: services,
                     Message: "Total des services de ce projet"
                 });       
-    
+
                 } catch (err) {
                     res.status(500).json({
                         Success: false,
@@ -46,7 +46,24 @@ export class ServiceController{
                     });
                 }
             }
-        
-            
+    async GetCountServiceOfProject(req: Request, res: Response){
+        try {
+            let id = req.params.id;
+            const services = await this.serviceService.getCount(Number(id));
+
+            res.json({
+                Success: true,
+                Data: services,
+                Message: "Total des services de ce projet"
+            });
+
+        } catch (err) {
+            res.status(500).json({
+                Success: false,
+                ErrorCode: (err as Error).name,
+                Message: (err as Error).message
+            });
+        }
+    }
        
 }

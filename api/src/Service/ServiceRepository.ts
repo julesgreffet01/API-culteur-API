@@ -167,5 +167,14 @@ export class ServiceRepository extends ReadOnlyRepository<Service>{
 
         return services
         }
+        async getCount(id: number): Promise<number> {
+            const res = await this.db.query(`
+                SELECT COUNT(*) AS count
+                FROM services s
+                WHERE s.project_id = $1
+            `, [id]);
+
+            return Number(res.rows[0].count);
+        }
 
 }

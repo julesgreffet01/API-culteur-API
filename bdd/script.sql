@@ -44,14 +44,14 @@ CREATE TABLE services (
 
 CREATE TABLE services_ports (
   port_id INT NOT NULL REFERENCES ports(id),
-  service_uuid UUID NOT NULL REFERENCES services(uuid),
+  service_uuid VARCHAR(255) NOT NULL REFERENCES services(uuid),
   PRIMARY KEY (port_id, service_uuid)
 );
 
 CREATE TABLE monitorings_services (
   id SERIAL PRIMARY KEY,
   monitoring_id INT NOT NULL REFERENCES monitorings(id),
-  service_uuid UUID NOT NULL REFERENCES services(uuid),
+  service_uuid VARCHAR(255) NOT NULL REFERENCES services(uuid),
   min_value INT,
   max_value INT,
   UNIQUE (monitoring_id, service_uuid)

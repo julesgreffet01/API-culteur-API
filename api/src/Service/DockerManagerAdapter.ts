@@ -8,7 +8,10 @@ export class DockerManagerAdapter {
         const reqToGo = await fetch(`${this.baseUrlService}/services/create`, {
             method: "POST",
             body: JSON.stringify({
+                uuid: "",
                 image: service.Image,
+                started_since: "",
+                status_id: 0,
                 name: service.Name,
                 projectid: service.Project.Id,
                 ports: JSON.stringify(service.Ports),

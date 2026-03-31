@@ -33,20 +33,29 @@ export class DockerManagerAdapter {
     async StartService(id: string): Promise<void> {
         const reqToGo = await fetch(`${this.baseUrlService}/services/${id}/start`, {
             method: "POST",
-        })
+        }).then(res => res.json())
+        if(!reqToGo.Success){
+            throw new Error('pas posssible de start')
+        }
         console.log(reqToGo)
     }
     async RestartService(id: string): Promise<void> {
         const reqToGo = await fetch(`${this.baseUrlService}/services/${id}/restart`, {
             method: "POST",
-        })
+        }).then(res => res.json())
+        if(!reqToGo.Success){
+            throw new Error('pas posssible de restart')
+        }
         console.log(reqToGo)
     }
 
     async StopService(id: string): Promise<void> {
         const reqToGo = await fetch(`${this.baseUrlService}/services/${id}/stop`, {
             method: "POST",
-        })
+        }).then(res => res.json())
+        if(!reqToGo.Success){
+            throw new Error('pas possible de stop')
+        }
         console.log(reqToGo)
     }
 }

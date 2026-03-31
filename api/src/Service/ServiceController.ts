@@ -124,18 +124,36 @@ export class ServiceController {
     // async Delete(req: Request, res: Response): Promise<Service> {
     //     const { uuid } = req.params;
     // }
-    //
-    // async Start(req: Request, res: Response): Promise<Service> {
-    //     const { uuid } = req.params;
-    // }
-    //
-    // async Stop(req: Request, res: Response): Promise<Service> {
-    //     const { uuid } = req.params;
-    // }
-    //
-    // async Restart(req: Request, res: Response): Promise<Service> {
-    //     const { uuid } = req.params;
-    // }
+
+    async Start(req: Request, res: Response): Promise<void> {
+        const { uuid } = req.params;
+        if(!uuid){
+            res.status(400).json({
+                Success: false,
+                ErrorCode: "400",
+                Message: "UUID not found"
+            })
+            return
+        }
+        try {
+            await this.serviceService.Start(uuid as string)
+        } catch (error) {
+            res.status(500).json({
+                Success: false,
+                ErrorCode: "500",
+                Message: (error as Error).message
+            })
+        }
+
+    }
+
+    async Stop(req: Request, res: Response): Promise<Service> {
+        const { uuid } = req.params;
+    }
+
+    async Restart(req: Request, res: Response): Promise<Service> {
+        const { uuid } = req.params;
+    }
     async GetCountServiceOfProject(req: Request, res: Response){
         try {
             let id = req.params.id;

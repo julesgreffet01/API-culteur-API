@@ -23,14 +23,14 @@ CREATE TABLE users (
   username VARCHAR(255) NOT NULL UNIQUE,
   password TEXT NOT NULL,
   name VARCHAR(100),
-  role_id INT NOT NULL REFERENCES roles(id)
+  role_id INT NOT NULL REFERENCES roles(id) ON DELETE CASCADE
 );
 
 CREATE TABLE projects (
   id SERIAL PRIMARY KEY,
   name VARCHAR(50) NOT NULL UNIQUE,
   created_at TIMESTAMP NOT NULL DEFAULT now(),
-  user_id INT NOT NULL REFERENCES users(id)
+  user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE services (
@@ -38,20 +38,20 @@ CREATE TABLE services (
   image VARCHAR(100),
   started_since TIMESTAMP NOT NULL DEFAULT now(),
   name VARCHAR(50) NOT NULL,
-  project_id INT NOT NULL REFERENCES projects(id),
+  project_id INT NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
   status_id INT NOT NULL REFERENCES "status"(id)
 );
 
 CREATE TABLE services_ports (
-  port_id INT NOT NULL REFERENCES ports(id),
-  service_uuid VARCHAR(255) NOT NULL REFERENCES services(uuid),
+  port_id INT NOT NULL REFERENCES ports(id) ON DELETE CASCADE,
+  service_uuid VARCHAR(255) NOT NULL REFERENCES services(uuid) ON DELETE CASCADE,
   PRIMARY KEY (port_id, service_uuid)
 );
 
 CREATE TABLE monitorings_services (
   id SERIAL PRIMARY KEY,
-  monitoring_id INT NOT NULL REFERENCES monitorings(id),
-  service_uuid VARCHAR(255) NOT NULL REFERENCES services(uuid),
+  monitoring_id INT NOT NULL REFERENCES monitorings(id) ON DELETE CASCADE,
+  service_uuid VARCHAR(255) NOT NULL REFERENCES services(uuid) ON DELETE CASCADE,
   min_value INT,
   max_value INT,
   UNIQUE (monitoring_id, service_uuid)
@@ -59,7 +59,7 @@ CREATE TABLE monitorings_services (
 
 CREATE TABLE measures (
   id SERIAL PRIMARY KEY,
-  monitoring_service_id INT NOT NULL REFERENCES monitorings_services(id),
+  monitoring_service_id INT NOT NULL REFERENCES monitorings_services(id) ON DELETE CASCADE,
   value INT NOT NULL,
   measured_at TIMESTAMP NOT NULL DEFAULT now()
 );
@@ -67,7 +67,7 @@ CREATE TABLE measures (
 CREATE TABLE logs (
   id SERIAL PRIMARY KEY,
   ip VARCHAR(16) NOT NULL,
-  user_id INT REFERENCES users(id),
+  user_id INT REFERENCES users(id) ON DELETE SET NULL,
   created_at TIMESTAMP DEFAULT now()
 );
 

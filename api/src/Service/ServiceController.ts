@@ -121,9 +121,31 @@ export class ServiceController {
 
     }
     //
-    // async Delete(req: Request, res: Response): Promise<Service> {
-    //     const { uuid } = req.params;
-    // }
+    async Delete(req: Request, res: Response): Promise<void> {
+        const { uuid } = req.params;
+        if(!uuid){
+            res.status(400).json({
+                Success: false,
+                ErrorCode: "400",
+                Message: "UUID not found"
+            })
+            return
+        }
+        try {
+            await this.serviceService.Delete(uuid as string)
+            res.status(200).json({
+                Success: true,
+                Data: null,
+                Message: "Delete service" + uuid
+            })
+        } catch (error) {
+            res.status(500).json({
+                Success: false,
+                ErrorCode: "500",
+                Message: (error as Error).message
+            })
+        }
+    }
 
     async Start(req: Request, res: Response): Promise<void> {
         const { uuid } = req.params;
@@ -137,6 +159,11 @@ export class ServiceController {
         }
         try {
             await this.serviceService.Start(uuid as string)
+            res.status(200).json({
+                Success: true,
+                Data: null,
+                Message: "Started service"
+            })
         } catch (error) {
             res.status(500).json({
                 Success: false,
@@ -159,6 +186,11 @@ export class ServiceController {
         }
         try {
             await this.serviceService.Stop(uuid as string)
+            res.status(200).json({
+                Success: true,
+                Data: null,
+                Message: "Started service"
+            })
             return
         } catch (error) {
             res.status(500).json({

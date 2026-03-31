@@ -10,7 +10,7 @@ router.get("/:uuid/monitoring", (req, res) => controller.GetAllMonitorings(req, 
 router.get("/:uuid", (req, res) => controllerService.GetById(req, res));
 
 router.put("/:uuid", async (req, res) => controllerService.Update(req, res));
-// router.delete("/:uuid", async (req, res) => controllerService.Delete(req, res));
+router.delete("/:uuid", async (req, res) => controllerService.Delete(req, res));
 //
 router.post("/:uuid/start", async (req, res) => controllerService.Start(req, res));
 router.post("/:uuid/stop", async (req, res) => controllerService.Stop(req, res));

@@ -147,12 +147,48 @@ export class ServiceController {
 
     }
 
-    async Stop(req: Request, res: Response): Promise<Service> {
+    async Stop(req: Request, res: Response): Promise<void> {
         const { uuid } = req.params;
+        if(!uuid){
+            res.status(400).json({
+                Success: false,
+                ErrorCode: "400",
+                Message: "UUID not found"
+            })
+            return
+        }
+        try {
+            await this.serviceService.Stop(uuid as string)
+            return
+        } catch (error) {
+            res.status(500).json({
+                Success: false,
+                ErrorCode: "500",
+                Message: (error as Error).message
+            })
+            return
+        }
     }
 
-    async Restart(req: Request, res: Response): Promise<Service> {
+    async Restart(req: Request, res: Response): Promise<void> {
         const { uuid } = req.params;
+        if(!uuid){
+            res.status(400).json({
+                Success: false,
+                ErrorCode: "400",
+                Message: "UUID not found"
+            })
+            return
+        }
+        try {
+            await this.serviceService.Restart(uuid as string)
+        } catch (error) {
+            res.status(500).json({
+                Success: false,
+                ErrorCode: "500",
+                Message: (error as Error).message
+            })
+        }
     }
     async GetCountServiceOfProject(req: Request, res: Response){
         try {
